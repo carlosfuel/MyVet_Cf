@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MyVet_Cf.Web.Data.Entities;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyVet_Cf.Web.Data.Entities
 {
@@ -6,29 +8,34 @@ namespace MyVet_Cf.Web.Data.Entities
     {
         public int Id { get; set; }
 
-        [Required]//Que los nombres sean obligatorios
-        [MaxLength(30)] //Tamaño máximo del campo 30 caracteres
+        [MaxLength(30,ErrorMessage ="El campo {0} no puede tener mas de {1} caracteres ")] //Tamaño máximo del campo 30 caracteres
+        [Required(ErrorMessage ="El campo {0} es Obligatorio")]//Que los nombres sean obligatorios        
+        [Display(Name = "Documento")]
         public string Document { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        
+        [MaxLength(50, ErrorMessage = "El campo {0} no puede tener mas de {1} caracteres ")]
+        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         [Display(Name ="Primer Nombre")]
         public string FirstName { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        
+        [MaxLength(50, ErrorMessage = "El campo {0} no puede tener mas de {1} caracteres ")]
+        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         [Display(Name = "Primer Apellido")]
         public string LastName { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(20, ErrorMessage = "El campo {0} no puede tener mas de {1} caracteres ")]
+        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         [Display(Name = "Teléfono Fijo")]
         public string FixedPhone { get; set; }
 
-        [Required]
+        [MaxLength(20, ErrorMessage = "El campo {0} no puede tener mas de {1} caracteres ")]
+        [Required(ErrorMessage = "El campo {0} es Obligatorio")]
         [Display(Name = "Celular")]
         public string CellPhone { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(100, ErrorMessage = "El campo {0} no puede tener mas de {1} caracteres ")]
         [Display(Name = "Dirección")]
         public string Address { get; set; }
 
@@ -37,5 +44,9 @@ namespace MyVet_Cf.Web.Data.Entities
 
         [Display(Name = "Propietario")]
         public string FullNameWithDocuement => $"{FirstName} {LastName} - {Document}";
+
+        //Relaciones---------------- Un propietario tiene muchas mascotas----------
+        public ICollection<Pet> Pets { get; set; }
+        public ICollection<Agenda> Agendas { get; set; }
     }
 }
