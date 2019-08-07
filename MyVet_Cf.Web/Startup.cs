@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyVet_Cf.Web.Data;
 
 namespace MyVet_Cf.Web
 {
@@ -31,7 +33,12 @@ namespace MyVet_Cf.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            //adicionamos este segmento de codigo cf-----------------------------
+            services.AddDbContext<DataContext>(cfg =>
+            {
+                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+            //-----------------------------------------------------------------cf
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
