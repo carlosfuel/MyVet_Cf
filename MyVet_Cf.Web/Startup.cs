@@ -39,6 +39,7 @@ namespace MyVet_Cf.Web
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             //-----------------------------------------------------------------cf
+            services.AddTransient<SeedDb>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

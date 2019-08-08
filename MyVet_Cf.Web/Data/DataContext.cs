@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyVet.Web.Data.Entities;
 using MyVet_Cf.Web.Data.Entities;
 using System;
 using System.Collections.Generic;
