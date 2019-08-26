@@ -6,7 +6,7 @@ namespace MyVet_Cf.Web.Helpers
 {
     public interface IConverterHelper
     {
-        Task<Pet> ToPetAsync(PetViewModel model, string path);
+        Task<Pet> ToPetAsync(PetViewModel model, string path,bool isNew);
                 
         PetViewModel ToPetViewMOdel(Pet pet);
     }
