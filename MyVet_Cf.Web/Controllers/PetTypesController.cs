@@ -125,26 +125,25 @@ namespace MyVet_Cf.Web.Controllers
             }
 
             var petType = await _context.PetTypes
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(pt => pt.Pets)
+                .FirstOrDefaultAsync(pt => pt.Id == id);
             if (petType == null)
             {
                 return NotFound();
             }
 
-            return View(petType);
-        }
 
-        // POST: PetTypes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var petType = await _context.PetTypes.FindAsync(id);
+            if (petType.Pets.Count>0)
+            {
+                ModelState.AddModelError(string.Empty, "El tipo de mascota no puede ser borrado");
+                return RedirectToAction(nameof(Index));
+            }
+
             _context.PetTypes.Remove(petType);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+       
         private bool PetTypeExists(int id)
         {
             return _context.PetTypes.Any(e => e.Id == id);
