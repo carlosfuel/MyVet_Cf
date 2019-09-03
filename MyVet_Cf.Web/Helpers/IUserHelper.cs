@@ -25,6 +25,8 @@ namespace MyVet_Cf.Web.Helpers
         Task<bool> DeleteUserAsync(string email);
 
         Task<IdentityResult> UpdateUserAsync(User user);
+
+        Task<SignInResult> ValidatePasswordAsync(User user, string password);
         //----------------------------------------------------------
     }
 
