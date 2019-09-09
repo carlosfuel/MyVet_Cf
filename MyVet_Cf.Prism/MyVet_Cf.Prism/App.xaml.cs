@@ -4,6 +4,7 @@ using MyVet_Cf.Prism.ViewModels;
 using MyVet_Cf.Prism.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MyVet_Cf.Common.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MyVet_Cf.Prism
@@ -23,6 +24,7 @@ namespace MyVet_Cf.Prism
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<IApiService, ApiService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();            
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
 
