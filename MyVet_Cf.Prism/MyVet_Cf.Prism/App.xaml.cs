@@ -28,6 +28,7 @@ namespace MyVet_Cf.Prism
             containerRegistry.RegisterForNavigation<NavigationPage>();            
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
 
+            containerRegistry.RegisterForNavigation<PetsPage, PetsPageViewModel>();
         }
     }
 }

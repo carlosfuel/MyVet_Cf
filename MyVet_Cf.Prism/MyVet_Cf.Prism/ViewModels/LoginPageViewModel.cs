@@ -11,6 +11,7 @@ namespace MyVet_Cf.Prism.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
+        private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private string _password;
         private bool _isRunning;
@@ -24,6 +25,7 @@ namespace MyVet_Cf.Prism.ViewModels
         {
             Title = "Autenticación...";
             IsEnabled = true;
+            _navigationService = navigationService;
             _apiService = apiService;
         }
 
@@ -71,23 +73,43 @@ namespace MyVet_Cf.Prism.ViewModels
             {
                 Password = Password,
                 Username = Email 
-
             };
 
             var  url = App.Current.Resources["UrlAPI"].ToString();
-            var response = await _apiService.GetTokenAsync(url, "/Account", "/CreateToken", request);
-
-            IsRunning = false;
-            IsEnabled = true;
+            var response = await _apiService.GetTokenAsync(url, "/Account", "/CreateToken", request);            
 
             if (!response.IsSuccess)
             {
+                IsRunning = false;
+                IsEnabled = true;
                 await App.Current.MainPage.DisplayAlert("Error", "El Correo o Contraseña son Incorrectos", "Aceptar");
                 Password = string.Empty;
                 return;
             }
 
-            await App.Current.MainPage.DisplayAlert("Ok", "Muy bien", "Aceptar");
+            var token = (TokenResponse)response.Result;
+            var rta2 = await _apiService.GetOwnerByEmailAsync(url, "/api", "/Owners/GetOwnerByEmail", "bearer",token.Token,Email);
+            if (!rta2.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert("Error"
+                    , "El Usuario tiene un problema.. comuniquese con su soporte", "Aceptar");                
+                return;
+            }
+
+            var owner = (OwnerResponse)rta2.Result;
+            var parametros = new NavigationParameters
+            {
+                { "owner", owner }
+            };
+
+            IsRunning = false;
+            IsEnabled = true;
+            
+            await _navigationService.NavigateAsync("PetsPage",parametros);
+            Password = string.Empty;
+            //await App.Current.MainPage.DisplayAlert("Ok", "Muy bien", "Aceptar");
         }
     }
 }
