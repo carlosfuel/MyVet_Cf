@@ -32,7 +32,7 @@ namespace MyVet_Cf.Web.Data.Entities
         //TODO: replace the correct URL for the image
         public string ImageFullPath => string.IsNullOrEmpty(ImageUrl)
             ? null
-            : $"https://TDB.azurewebsites.net{ImageUrl.Substring(1)}";
+            : $"https://myvetcf.azurewebsites.net{ImageUrl.Substring(1)}";
 
         [Display(Name = "Fecha de Nacimiento")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
