@@ -27,6 +27,10 @@ namespace MyVet_Cf.Prism.ViewModels
             IsEnabled = true;
             _navigationService = navigationService;
             _apiService = apiService;
+
+            //Borrar esta parte es temporal.............
+            Email ="carlosfuel@outlook.com";
+            Password = "123456";
         }
 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
