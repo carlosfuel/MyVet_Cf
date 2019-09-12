@@ -4,64 +4,79 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet_Cf.Prism.Views.PetsPage"
+             BackgroundColor="Silver"
              Title="{Binding Title}">
 
     <StackLayout
         Padding="10">
         <ListView
+            BackgroundColor="Transparent"
+            SeparatorVisibility="None"
             HasUnevenRows="True"
             ItemsSource="{Binding Pets}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Image 
+                        <Frame
+                            HasShadow="True"
+                            CornerRadius="10"
+                            Margin="0,0,0,5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectPetCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image 
                                 Grid.Column="0"
                                 Source="{Binding ImageUrl}"
-                                WidthRequest="200"/>
-                            <Grid 
+                                WidthRequest="100"/>
+                                <Grid 
                                 Grid.Column="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label
                                     Grid.Column="0"
                                     Grid.Row="0"
                                     Text="Name"/>
-                                <Label
+                                    <Label
                                     Grid.Column="1"
                                     Grid.Row="0"
                                     FontAttributes="Bold"
                                     Text="{Binding Name}"/>
-                                <Label
+                                    <Label
                                     Grid.Column="0"
                                     Grid.Row="1"
                                     Text="Race"/>
-                                <Label
+                                    <Label
                                     Grid.Column="1"
                                     Grid.Row="1"
                                     FontAttributes="Bold"
                                     Text="{Binding Race}"/>
-                                <Label
+                                    <Label
                                     Grid.Column="0"
                                     Grid.Row="2"
                                     Text="Born"/>
-                                <Label
+                                    <Label
                                     Grid.Column="1"
                                     Grid.Row="2"
                                     FontAttributes="Bold"
                                     Text="{Binding Born, StringFormat='{0:yyyy/MM/dd}'}"/>
-                            </Grid>
-                            <Image
+                                </Grid>
+                                <Image
                                 Grid.Column="2"
-                                Source="ic_chevron_right"/>
-                        </Grid>
+                                Source="ic_chevron_right">
+                                    <!--<Image.GestureRecognizers>
+                                        --><!--<TapGestureRecognizer Command="{Binding SelectPetCommand}"/>--><!--
+                                    </Image.GestureRecognizers>-->
+                                </Image>
+                            </Grid>
+                        </Frame>                        
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
