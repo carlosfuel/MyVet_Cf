@@ -6,32 +6,35 @@
              x:Class="MyVet_Cf.Prism.Views.LoginPage"
              Title="{Binding Title}">
 
-    <StackLayout
-        Padding="10">
-        <Label 
-            Text="Email"/>
-        <Entry
-            Keyboard="Email"
-            Placeholder="Ingrese su correo..."
-            Text="{Binding Email}"/>
-        <Label 
-            Text="Password"/>
-        <Entry
-            IsPassword="True"
-            Placeholder="Ingrese su Contraseña..."
-            Text="{Binding Password}"/>
-        <ActivityIndicator
-            VerticalOptions="CenterAndExpand"
-            IsRunning="{Binding IsRunning}"/>
-        <Button 
-            BorderRadius="23"
-            BackgroundColor="Navy"
-            IsEnabled="{Binding IsEnabled}"
-            Command="{Binding LoginCommand}" 
-            HeightRequest="46"
-                Text="Ingresar"
-            TextColor="White"/>
+    <ScrollView>
+        <StackLayout
+            Padding="10">
+            <Label 
+                Text="Email"/>
+            <Entry
+                Keyboard="Email"
+                Placeholder="Ingrese su correo..."
+                Text="{Binding Email}"/>
+            <Label 
+                Text="Password"/>
+            <Entry
+                IsPassword="True"
+                Placeholder="Ingrese su Contraseña..."
+                Text="{Binding Password}"/>
+            <ActivityIndicator
+                VerticalOptions="CenterAndExpand"
+                IsRunning="{Binding IsRunning}"/>
+            <Button 
+                BorderRadius="23"
+                BackgroundColor="Navy"
+                IsEnabled="{Binding IsEnabled}"
+                Command="{Binding LoginCommand}" 
+                HeightRequest="46"
+                    Text="Ingresar"
+                TextColor="White"/>
 
-    </StackLayout>
+        </StackLayout>
+    </ScrollView>
+    
   
 </ContentPage>
