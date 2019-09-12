@@ -72,14 +72,16 @@
                                 Grid.Column="2"
                                 Source="ic_chevron_right">
                                     <!--<Image.GestureRecognizers>
-                                        --><!--<TapGestureRecognizer Command="{Binding SelectPetCommand}"/>--><!--
+                                        -->
+                                    <!--<TapGestureRecognizer Command="{Binding SelectPetCommand}"/>-->
+                                    <!--
                                     </Image.GestureRecognizers>-->
                                 </Image>
                             </Grid>
-                        </Frame>                        
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>        
+        </ListView>
     </StackLayout>
 </ContentPage>

@@ -5,5 +5,68 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet_Cf.Prism.Views.PetPage"             
              Title="{Binding Title}">
-  
+    <StackLayout
+        Padding="10">
+        <Image
+            HeightRequest="250"
+            Source="{Binding Pet.ImageUrl}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Column="0"
+                Grid.Row="0"
+                Text="Nombre"/>
+            <Label
+                Grid.Column="1"
+                Grid.Row="0"
+                FontAttributes="Bold"
+                Text="{Binding Pet.Name}"/>
+            <Label
+                Grid.Column="0"
+                Grid.Row="1"
+                Text="Raza"/>
+            <Label
+                Grid.Column="1"
+                Grid.Row="1"
+                FontAttributes="Bold"
+                Text="{Binding Pet.Race}"/>
+            <Label
+                Grid.Column="0"
+                Grid.Row="2"
+                Text="Fec. Nac."/>
+            <Label
+                Grid.Column="1"
+                Grid.Row="2"
+                FontAttributes="Bold"
+                Text="{Binding Pet.Born, StringFormat='{0:yyyy/MM/dd}'}"/>
+            <Label
+                Grid.Column="0"
+                Grid.Row="3"
+                Text="Tipo de Mascota"/>
+            <Label
+                Grid.Column="1"
+                Grid.Row="3"
+                FontAttributes="Bold"
+                Text="{Binding Pet.PetType}"/>
+            <Label
+                Grid.Column="0"
+                Grid.Row="4"
+                Text="Comentarios"/>
+            <Label
+                Grid.Column="1"
+                Grid.Row="4"
+                FontAttributes="Bold"
+                Text="{Binding Pet.Remarks}"/>
+        </Grid>
+    </StackLayout>
+
 </ContentPage>
