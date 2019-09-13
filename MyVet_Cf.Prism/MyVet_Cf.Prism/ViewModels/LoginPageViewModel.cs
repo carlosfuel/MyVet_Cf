@@ -73,13 +73,25 @@ namespace MyVet_Cf.Prism.ViewModels
             IsRunning = true;
             IsEnabled = false;
 
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            var connection = await _apiService.CheckConnection(url);
+            if (!connection)
+            {
+                IsEnabled = true;
+                IsRunning = false;
+                await App.Current.MainPage.DisplayAlert("Error de conexión a Internet"
+                    , "Revise su Conexión a Internet..", "Aceptar");
+                return;
+            }
+
+
             var request = new TokenRequest
             {
                 Password = Password,
                 Username = Email 
             };
 
-            var  url = App.Current.Resources["UrlAPI"].ToString();
+            //var  url = App.Current.Resources["UrlAPI"].ToString();
             var response = await _apiService.GetTokenAsync(url, "/Account", "/CreateToken", request);            
 
             if (!response.IsSuccess)
@@ -91,7 +103,7 @@ namespace MyVet_Cf.Prism.ViewModels
                 return;
             }
 
-            var token = (TokenResponse)response.Result;
+            var token = response.Result;
             var rta2 = await _apiService.GetOwnerByEmailAsync(url, "/api", "/Owners/GetOwnerByEmail", "bearer",token.Token,Email);
             if (!rta2.IsSuccess)
             {
@@ -102,7 +114,7 @@ namespace MyVet_Cf.Prism.ViewModels
                 return;
             }
 
-            var owner = (OwnerResponse)rta2.Result;
+            var owner = rta2.Result;
             var parametros = new NavigationParameters
             {
                 { "owner", owner }

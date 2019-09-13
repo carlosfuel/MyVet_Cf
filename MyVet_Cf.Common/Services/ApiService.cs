@@ -1,16 +1,28 @@
-﻿using System;
+﻿using MyVet_Cf.Common.Models;
+using Newtonsoft.Json;
+using Plugin.Connectivity;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using MyVet_Cf.Common.Models;
-using Newtonsoft.Json;
 
 namespace MyVet_Cf.Common.Services
 {
     public class ApiService : IApiService
     {
-        public async Task<Response> GetTokenAsync(
+        public async Task<bool> CheckConnection(string url)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                return false;
+            }
+
+            return await CrossConnectivity.Current.IsRemoteReachable(url);
+        }
+
+
+        public async Task<Response<TokenResponse>> GetTokenAsync(
             string urlBase,
             string servicePrefix,
             string controller,
@@ -31,7 +43,7 @@ namespace MyVet_Cf.Common.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
+                    return new Response<TokenResponse>
                     {
                         IsSuccess = false,
                         Message = result,
@@ -39,7 +51,7 @@ namespace MyVet_Cf.Common.Services
                 }
 
                 var token = JsonConvert.DeserializeObject<TokenResponse>(result);
-                return new Response
+                return new Response<TokenResponse>
                 {
                     IsSuccess = true,
                     Result = token
@@ -47,7 +59,7 @@ namespace MyVet_Cf.Common.Services
             }
             catch (Exception ex)
             {
-                return new Response
+                return new Response<TokenResponse>
                 {
                     IsSuccess = false,
                     Message = ex.Message
@@ -55,7 +67,7 @@ namespace MyVet_Cf.Common.Services
             }
         }
 
-        public async Task<Response> GetOwnerByEmailAsync(
+        public async Task<Response<OwnerResponse>> GetOwnerByEmailAsync(
             string urlBase,
             string servicePrefix,
             string controller,
@@ -80,7 +92,7 @@ namespace MyVet_Cf.Common.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
+                    return new Response<OwnerResponse>
                     {
                         IsSuccess = false,
                         Message = result,
@@ -88,7 +100,7 @@ namespace MyVet_Cf.Common.Services
                 }
 
                 var owner = JsonConvert.DeserializeObject<OwnerResponse>(result);
-                return new Response
+                return new Response<OwnerResponse>
                 {
                     IsSuccess = true,
                     Result = owner
@@ -96,7 +108,7 @@ namespace MyVet_Cf.Common.Services
             }
             catch (Exception ex)
             {
-                return new Response
+                return new Response<OwnerResponse>
                 {
                     IsSuccess = false,
                     Message = ex.Message
