@@ -21,7 +21,7 @@
             <Label 
                 Grid.Column="0"
                 FontAttributes="Bold"
-                Text="Fecha L."/>
+                Text="Fecha"/>
             <Label 
                 Grid.Column="1"
                 FontAttributes="Bold"
@@ -29,7 +29,7 @@
             <Label 
                 Grid.Column="2"
                 FontAttributes="Bold"
-                Text="Descripcion"/>         
+                Text="Descripción"/>         
         </Grid>
         <ListView
             HasUnevenRows="True"
@@ -38,6 +38,9 @@
                 <DataTemplate>
                     <ViewCell>
                         <Grid>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectHistoryCommand}"/>
+                            </Grid.GestureRecognizers>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition  Width="*"/>
                                 <ColumnDefinition  Width="*"/>
@@ -49,7 +52,7 @@
                             </Grid.RowDefinitions>
                             <Label 
                                 Grid.Column="0"
-                                Text="{Binding DateLocal,StringFormat='{0:yyyy/MM/dd}'}"
+                                Text="{Binding DateLocal,StringFormat='{0:yyyy/MM/dd HH:mm}'}"
                                 VerticalOptions="Center"/>                            
                             <Label 
                                 Grid.Column="1"

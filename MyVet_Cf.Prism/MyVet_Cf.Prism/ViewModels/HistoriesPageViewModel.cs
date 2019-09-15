@@ -1,20 +1,23 @@
 ﻿using MyVet_Cf.Common.Models;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MyVet_Cf.Prism.ViewModels
 {
     public class HistoriesPageViewModel : ViewModelBase
     {
+        private readonly INavigationService _navigationService;
         private PetResponse _pet;
-        private ObservableCollection<HistoryResponse> _histories;
+        private ObservableCollection<HistoryItemViewModel> _histories;
 
         public HistoriesPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            Title = "Historias";
+            _navigationService = navigationService;
+            Title = "Historias";            
         }
 
-        public ObservableCollection<HistoryResponse> Histories
+        public ObservableCollection<HistoryItemViewModel> Histories
         {
             get => _histories;
             set => SetProperty(ref _histories, value);
@@ -33,7 +36,15 @@ namespace MyVet_Cf.Prism.ViewModels
             {
                 Pet = parameters.GetValue<PetResponse>("pet");
                 Title = $"Historias Cl de:  {Pet.Name}";
-                Histories = new ObservableCollection<HistoryResponse>(Pet.Histories);
+                Histories = new ObservableCollection<HistoryItemViewModel>
+                    (Pet.Histories.Select(h => new HistoryItemViewModel(_navigationService)
+                    {
+                        Date =h.Date,
+                        Description = h.Description,
+                        Id =h.Id,
+                        Remarks =h.Remarks,
+                        ServiceType = h.ServiceType
+                    }).ToList());
             }
         }
     }

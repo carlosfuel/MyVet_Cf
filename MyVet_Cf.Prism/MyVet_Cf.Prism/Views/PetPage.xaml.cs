@@ -6,7 +6,7 @@ namespace MyVet_Cf.Prism.Views
     {
         public PetPage()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
     }
 }
