@@ -39,7 +39,7 @@ namespace MyVet_Cf.Web.Models
         [StringLength(20, MinimumLength = 6, ErrorMessage = "El campo {0}  debe contener entre {2} y {1} caracteres")]
         public string Password { get; set; }
 
-        [Display(Name = "Confirme Contraseña")]
+        [Display(Name = "Confirmar Contraseña")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [DataType(DataType.Password)]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "El campo {0}  debe contener entre {2} y {1} caracteres")]
