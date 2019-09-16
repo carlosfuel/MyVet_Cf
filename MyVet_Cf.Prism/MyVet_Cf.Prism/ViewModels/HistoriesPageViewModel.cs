@@ -1,4 +1,6 @@
-﻿using MyVet_Cf.Common.Models;
+﻿using MyVet_Cf.Common.Helpers;
+using MyVet_Cf.Common.Models;
+using Newtonsoft.Json;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,7 +16,9 @@ namespace MyVet_Cf.Prism.ViewModels
         public HistoriesPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             _navigationService = navigationService;
-            Title = "Historias";            
+            Title = "Historias";
+            Pet = JsonConvert.DeserializeObject<PetResponse>(Settings.Pet);
+            LoadHistories();
         }
 
         public ObservableCollection<HistoryItemViewModel> Histories
@@ -29,23 +33,28 @@ namespace MyVet_Cf.Prism.ViewModels
             set => SetProperty(ref _pet, value);
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        //public override void OnNavigatedTo(INavigationParameters parameters)
+        //{
+        //    base.OnNavigatedTo(parameters);
+        //    if (parameters.ContainsKey("pet"))
+        //    {
+        //        Pet = parameters.GetValue<PetResponse>("pet");
+        //        Title = $"Historias Cl de:  {Pet.Name}";
+        //        LoadHistories();
+        //    }
+        //}
+
+        private void LoadHistories()
         {
-            base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey("pet"))
-            {
-                Pet = parameters.GetValue<PetResponse>("pet");
-                Title = $"Historias Cl de:  {Pet.Name}";
-                Histories = new ObservableCollection<HistoryItemViewModel>
-                    (Pet.Histories.Select(h => new HistoryItemViewModel(_navigationService)
-                    {
-                        Date =h.Date,
-                        Description = h.Description,
-                        Id =h.Id,
-                        Remarks =h.Remarks,
-                        ServiceType = h.ServiceType
-                    }).ToList());
-            }
+            Histories = new ObservableCollection<HistoryItemViewModel>
+                     (Pet.Histories.Select(h => new HistoryItemViewModel(_navigationService)
+                     {
+                         Date = h.Date,
+                         Description = h.Description,
+                         Id = h.Id,
+                         Remarks = h.Remarks,
+                         ServiceType = h.ServiceType
+                     }).ToList());
         }
     }
 }

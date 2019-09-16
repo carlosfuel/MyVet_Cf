@@ -1,4 +1,6 @@
-﻿using MyVet_Cf.Common.Models;
+﻿using MyVet_Cf.Common.Helpers;
+using MyVet_Cf.Common.Models;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -19,12 +21,8 @@ namespace MyVet_Cf.Prism.ViewModels
 
         private async void SelectPet()
         {
-            var parametros = new NavigationParameters
-            {
-                { "pet", this }
-            };
-
-            await _navigationService.NavigateAsync("HistoriesPage", parametros);
+            Settings.Pet = JsonConvert.SerializeObject(this);
+            await _navigationService.NavigateAsync("PetTabbedPage");
         }
     }
 }
