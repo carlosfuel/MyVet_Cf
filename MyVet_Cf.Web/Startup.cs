@@ -38,6 +38,13 @@ namespace MyVet_Cf.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/NotAuthorized";
+                options.AccessDeniedPath = "/Account/NotAuthorized";
+            });
+
+
             //-----------------cf---------------------------------
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
@@ -94,6 +101,9 @@ namespace MyVet_Cf.Web
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
