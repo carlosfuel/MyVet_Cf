@@ -23,8 +23,8 @@ namespace MyVet_Cf.Web.Data
         {
             await _dataContext.Database.EnsureCreatedAsync();
             await CheckRoles();
-            var manager = await CheckUserAsync("1010", "Carlos", "Fuel", "carlosfuel@gmail.com", "350 634 2747", "Carrera 14 No 10-189", "Admin");
-            var customer = await CheckUserAsync("2020", "Carlos", "Fuel", "carlosfuel@outlook.com", "350 634 2747", "Carrera 14 No 10-189", "Customer");
+            var manager = await CheckUserAsync("1010", "Carlos", "Fuel", "carlosfuel@gmail.com", "3136267561", "Carrera 14 No 10-189", "Admin");
+            var customer = await CheckUserAsync("2020", "Carlos", "Fuel", "carlosfuel@outlook.com", "3155579484", "Carrera 14 No 10-189", "Customer");
             await CheckPetTypesAsync();
             await CheckServiceTypesAsync();
             await CheckOwnerAsync(customer);
@@ -39,7 +39,8 @@ namespace MyVet_Cf.Web.Data
             await _userHelper.CheckRoleAsync("Customer");
         }
 
-        private async Task<User> CheckUserAsync(string document, 
+        private async Task<User> CheckUserAsync(
+            string document, 
             string firstName, 
             string lastName, 
             string email, 
@@ -63,7 +64,10 @@ namespace MyVet_Cf.Web.Data
 
                 await _userHelper.AddUserAsync(user, "123456");
                 await _userHelper.AddUserToRoleAsync(user, role);
-            }
+
+                var token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                await _userHelper.ConfirmEmailAsync(user, token);
+            }           
 
             return user;
         }

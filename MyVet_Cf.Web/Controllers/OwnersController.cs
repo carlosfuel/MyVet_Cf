@@ -23,13 +23,15 @@ namespace MyVet_Cf.Web.Controllers
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IImageHelper _imageHelper;
+        private readonly IMailHelper _mailHelper;
 
         public OwnersController(
             DataContext context,
             IUserHelper userHelper,
             ICombosHelper combosHelper,
             IConverterHelper converterHelper,
-            IImageHelper imageHelper
+            IImageHelper imageHelper,
+            IMailHelper mailHelper
             )
         {
             _dataContext = context;
@@ -37,6 +39,7 @@ namespace MyVet_Cf.Web.Controllers
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
             _imageHelper = imageHelper;
+            _mailHelper = mailHelper;
         }
 
         // GET: Owners
@@ -115,11 +118,39 @@ namespace MyVet_Cf.Web.Controllers
                     try
                     {
                         await _dataContext.SaveChangesAsync();
+                        //---------------------------
+
+                        var myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                        var tokenLink = Url.Action("ConfirmEmail", "Account", new
+                        {
+                            userid = user.Id,
+                            token = myToken
+                        }, protocol: HttpContext.Request.Scheme);
+
+                        _mailHelper.SendMail(model.Username, "Confirmación de Correo ", $"<h1>Confirmación de Correo</h1>" +
+                            $"Para Habilitar el Usuario, " +
+                            $"Por favor haga clic en el siguiente vínculo:</br></br><a href = \"{tokenLink}\">Confirmación de Correo</a>");
+
+                        //-----------------------------------
+                        //var myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                        //var tokenLink = Url.Action("ConfirmEmail", "Account", new
+                        //{
+                        //    userid = user.Id,
+                        //    token = myToken
+                        //}, protocol: HttpContext.Request.Scheme);
+
+                        //_mailHelper.SendMail(model.Username, "Email confirmation", $"<h1>Email Confirmation</h1>" +
+                        //    $"To allow the user, " +
+                        //    $"plase click in this link:</br></br><a href = \"{tokenLink}\">Confirm Email</a>");
+
+
+                        //---------------------------
                         return RedirectToAction(nameof(Index));
                     }
                     catch (Exception er)
                     {
                         ModelState.AddModelError(string.Empty, er.ToString());
+                        return View(model);
                     }
                 }
                 ModelState.AddModelError(string.Empty, response.Errors.FirstOrDefault().Description);
