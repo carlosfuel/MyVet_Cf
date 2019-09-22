@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyVet_Cf.Web.Data;
 using MyVet_Cf.Web.Data.Entities;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyVet_Cf.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PetTypesController : Controller
     {
         private readonly DataContext _context;
@@ -133,7 +132,7 @@ namespace MyVet_Cf.Web.Controllers
             }
 
 
-            if (petType.Pets.Count>0)
+            if (petType.Pets.Count > 0)
             {
                 ModelState.AddModelError(string.Empty, "El tipo de mascota no puede ser borrado");
                 return RedirectToAction(nameof(Index));
@@ -143,7 +142,7 @@ namespace MyVet_Cf.Web.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-       
+
         private bool PetTypeExists(int id)
         {
             return _context.PetTypes.Any(e => e.Id == id);
