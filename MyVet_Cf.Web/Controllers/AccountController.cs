@@ -326,6 +326,66 @@ namespace MyVet_Cf.Web.Controllers
             return View();
         }
 
+        //------------------------------------------------------------------------------------
+
+        public IActionResult RecoverPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RecoverPassword(RecoverPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userHelper.GetUserByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "El correo electrónico no corresponde a un usuario registrado");
+                    return View(model);
+                }
+
+                var myToken = await _userHelper.GeneratePasswordResetTokenAsync(user);
+                var link = Url.Action(
+                    "ResetPassword",
+                    "Account",
+                    new { token = myToken }, protocol: HttpContext.Request.Scheme);
+                _mailHelper.SendMail(model.Email, "MyVet_CF Restablecer Contraseña", $"<h1>Restableciendo Contraseña</h1>" +
+                    $"Para restablecer la contraseña, haga clic en el siguiente enlace:</br></br>" +
+                    $"<a href = \"{link}\">Restablecer Contraseña</a>");
+                ViewBag.Message = "Las instrucciones para recuperar su contraseña fueron enviadas al correo electrónico";
+                return View();
+
+            }
+
+            return View(model);
+        }
+
+        public IActionResult ResetPassword(string token)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            var user = await _userHelper.GetUserByEmailAsync(model.UserName);
+            if (user != null)
+            {
+                var result = await _userHelper.ResetPasswordAsync(user, model.Token, model.Password);
+                if (result.Succeeded)
+                {
+                    ViewBag.Message = "Restablecimiento de Contraseña Exitoso";
+                    return View();
+                }
+
+                ViewBag.Message = "Se presentó un Error al restablecer la contraseña ";
+                return View(model);
+            }
+
+            ViewBag.Message = "Usuario no Encontrado";
+            return View(model);
+        }
 
     }
 }
