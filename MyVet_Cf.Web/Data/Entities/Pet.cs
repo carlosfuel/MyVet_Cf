@@ -27,6 +27,7 @@ namespace MyVet_Cf.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime Born { get; set; }
 
+        [Display(Name = "Comentarios")]
         public string Remarks { get; set; } // comentarios
                
         //TODO: replace the correct URL for the image
