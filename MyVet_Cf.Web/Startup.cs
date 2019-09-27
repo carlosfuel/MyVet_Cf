@@ -91,6 +91,7 @@ namespace MyVet_Cf.Web
             services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddScoped<IImageHelper, ImageHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
+            services.AddScoped<IAgendaHelper, AgendaHelper>();
             //-------------------------------------------------cf
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
