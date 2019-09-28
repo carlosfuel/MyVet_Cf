@@ -23,6 +23,6 @@ namespace MyVet_Cf.Web.Models
 
         public bool IsMine { get; set; }
 
-        public string Reserved => "Reserved";
+        public string Reserved => "Reservada";
     }
 }
