@@ -162,5 +162,48 @@ namespace MyVet_Cf.Web.Controllers.API
             return Ok(updatedUser);
         }
 
+        //--------------------------------------------------------------------
+
+        [HttpPost]
+        [Route("ChangePassword")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "Solicitud incorrecta"
+                });
+            }
+
+            var user = await _userHelper.GetUserByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "Este correo electrónico no está asignado a ningún usuario"
+                });
+            }
+
+            var result = await _userHelper.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = result.Errors.FirstOrDefault().Description
+                });
+            }
+
+            return Ok(new Response<object>
+            {
+                IsSuccess = true,
+                Message = "La contraseña fue cambiada exitosamente!"
+            });
+        }
+
     }
 }
