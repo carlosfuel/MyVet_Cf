@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using MyVet_Cf.Common.Models;
 using MyVet_Cf.Web.Data.Entities;
 using MyVet_Cf.Web.Models;
 
@@ -15,6 +16,10 @@ namespace MyVet_Cf.Web.Helpers
         Task<History> ToHistoryAsync(HistoryViewModel model, bool isNew);
 
         HistoryViewModel ToHistoryViewModel(History history);
+
+        PetResponse ToPetResponse(Pet pet);
+
+        OwnerResponse ToOwnerResposne(Owner owner);
         
         //-----------------------------------------------------------
 
