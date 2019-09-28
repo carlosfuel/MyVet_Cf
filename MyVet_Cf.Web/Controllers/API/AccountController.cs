@@ -88,5 +88,44 @@ namespace MyVet_Cf.Web.Controllers.API
                 Message = "Se envió un correo electrónico de confirmación. Confirme su cuenta e inicie sesión en la aplicación."
             });
         }
+
+        //----------------------------------------------------
+
+        [HttpPost]
+        [Route("RecoverPassword")]
+        public async Task<IActionResult> RecoverPassword([FromBody] EmailRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "Bad request"
+                });
+            }
+
+            var user = await _userHelper.GetUserByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "Este correo no ha sido asignado a ningún Usuario"
+                });
+            }
+
+            var myToken = await _userHelper.GeneratePasswordResetTokenAsync(user);
+            var link = Url.Action("ResetPassword", "Account", new { token = myToken }, protocol: HttpContext.Request.Scheme);
+            _mailHelper.SendMail(request.Email, "Restablecimiento de contraseña", $"<h1>Recuperar contraseña</h1>" +
+                $"Para restablecer la contraseña, haga clic en este enlace:</br></br>" +
+                $"<a href = \"{link}\">Restablecer Contraseña</a>");
+
+            return Ok(new Response<object>
+            {
+                IsSuccess = true,
+                Message = "Se envió un correo electrónico con instrucciones para cambiar la contraseña."
+            });
+        }
+
     }
 }
