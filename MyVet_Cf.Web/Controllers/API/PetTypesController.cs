@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MyVet_Cf.Web.Data;
 using MyVet_Cf.Web.Data.Entities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MyVet_Cf.Web.Controllers.API
 {
@@ -28,9 +24,9 @@ namespace MyVet_Cf.Web.Controllers.API
         [HttpGet]
         public IEnumerable<PetType> GetPetTypes()
         {
-            return _context.PetTypes;
+            return _context.PetTypes.OrderBy(pt => pt.Name);
         }
 
-        
+
     }
 }
