@@ -18,7 +18,7 @@ namespace MyVet_Cf.Prism
         protected override async void OnInitialized()
         {
             //Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTQzNDc1QDMxMzcyZTMyMmUzMFNSa1lQVlZ3R3Bta0tpOW5qSWErcEdCK3JxcDZsZUZic2luRmNtcE1pMW89");
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTM3Njg0QDMxMzcyZTMyMmUzMGUvQlg3Tnk5ODRGQ01pbzNnWmEyWHdWcExaaUVOQ0FKODZGNDFpekRtd2M9");
+            //Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTM3Njg0QDMxMzcyZTMyMmUzMGUvQlg3Tnk5ODRGQ01pbzNnWmEyWHdWcExaaUVOQ0FKODZGNDFpekRtd2M9");
             InitializeComponent();
 
             await NavigationService.NavigateAsync("NavigationPage/LoginPage");
@@ -36,6 +36,12 @@ namespace MyVet_Cf.Prism
 
             containerRegistry.RegisterForNavigation<HistoryPage, HistoryPageViewModel>();
             containerRegistry.RegisterForNavigation<PetTabbedPage, PetTabbedPageViewModel>();
+            
+            
+            containerRegistry.RegisterForNavigation<AgendaPage, AgendaPageViewModel>();
+            containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
+            containerRegistry.RegisterForNavigation<ProfilePage, ProfilePageViewModel>();
+            containerRegistry.RegisterForNavigation<VeterinaryMasterDetailPage, VeterinaryMasterDetailPageViewModel>();
         }
     }
 }

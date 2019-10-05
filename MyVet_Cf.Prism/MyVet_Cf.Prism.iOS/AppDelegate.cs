@@ -2,7 +2,7 @@
 using Prism;
 using Prism.Ioc;
 using UIKit;
-using Syncfusion.SfBusyIndicator.XForms.iOS;
+//using Syncfusion.SfBusyIndicator.XForms.iOS;
 
 
 namespace MyVet_Cf.Prism.iOS
@@ -26,7 +26,7 @@ namespace MyVet_Cf.Prism.iOS
             LoadApplication(new App(new iOSInitializer()));
             //--------------------------------------------------
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
-            new SfBusyIndicatorRenderer();
+            //new SfBusyIndicatorRenderer();
             //------------------------------------------------------
             return base.FinishedLaunching(app, options);
         }

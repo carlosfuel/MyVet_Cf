@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<!--<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="MyVet_Cf.Prism.Views.LoginPage"
+             Title="{Binding Title}">-->
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"             
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet_Cf.Prism.Views.LoginPage"
              Title="{Binding Title}">
@@ -29,9 +35,9 @@
                     IsPassword="True"
                     Placeholder="Ingrese su Contraseña..."
                     Text="{Binding Password}"/>
-                <!--<ActivityIndicator
+                <ActivityIndicator
                     VerticalOptions="CenterAndExpand"
-                    IsRunning="{Binding IsRunning}"/>-->
+                    IsRunning="{Binding IsRunning}"/>
                 <Button 
                     BorderRadius="23"
                     BackgroundColor="Navy"
@@ -43,7 +49,7 @@
                     VerticalOptions="EndAndExpand"/>
 
         </StackLayout>
-        <busyindicator:SfBusyIndicator  
+        <!--<busyindicator:SfBusyIndicator  
             AnimationType="Gear"
             AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
             AbsoluteLayout.LayoutFlags="All"
@@ -54,7 +60,7 @@
             Title="Loading..."
             VerticalOptions="Center"
             ViewBoxWidth="80"
-            ViewBoxHeight="80" />
+            ViewBoxHeight="80" />-->
         </AbsoluteLayout>        
     </ScrollView>
     

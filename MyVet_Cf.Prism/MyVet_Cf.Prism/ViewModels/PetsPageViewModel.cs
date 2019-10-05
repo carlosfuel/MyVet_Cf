@@ -1,4 +1,6 @@
-﻿using MyVet_Cf.Common.Models;
+﻿using MyVet_Cf.Common.Helpers;
+using MyVet_Cf.Common.Models;
+using Newtonsoft.Json;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,12 +13,17 @@ namespace MyVet_Cf.Prism.ViewModels
         private OwnerResponse _owner;
         private ObservableCollection<PetItemViewModel> _pets;
 
+        //------------------------------------------------------------
+
         public PetsPageViewModel(
             INavigationService navigationService) : base(navigationService)
-        {
-            Title = "Mascotas";
+        {            
             _navigationService = navigationService;
+            Title = "Mascotas";
+            CargarPropietario();//lo enviamos por persistencia
         }
+
+        //------------------------------------------------------------
 
         public ObservableCollection<PetItemViewModel> Pets
         {
@@ -24,27 +31,25 @@ namespace MyVet_Cf.Prism.ViewModels
             set => SetProperty(ref _pets, value);
         }
 
-        public override void OnNavigatingTo(INavigationParameters parameters)
+        //-------------------------------------------------------------
+
+        private void CargarPropietario()
         {
-            base.OnNavigatingTo(parameters);
-
-            if (parameters.ContainsKey("owner"))
+            _owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
+            Title = $"Mascotas de: {_owner.FullName}";
+            Pets = new ObservableCollection<PetItemViewModel>(_owner.Pets.Select(p => new PetItemViewModel(_navigationService)
             {
-                _owner = parameters.GetValue<OwnerResponse>("owner");
-                Title = $"Mascotas de: {_owner.FullName}";
-                Pets = new ObservableCollection<PetItemViewModel>(_owner.Pets.Select(p => new PetItemViewModel(_navigationService)
-                {
-                    Born = p.Born,
-                    Histories = p.Histories,
-                    Id = p.Id,
-                    ImageUrl = p.ImageUrl,
-                    Name = p.Name,
-                    PetType = p.PetType,
-                    Race = p.Race,
-                    Remarks = p.Remarks
-                }).ToList());
-            }
-
+                Born = p.Born,
+                Histories = p.Histories,
+                Id = p.Id,
+                ImageUrl = p.ImageUrl,
+                Name = p.Name,
+                PetType = p.PetType,
+                Race = p.Race,
+                Remarks = p.Remarks
+            }).ToList());
         }
+
+        //------------------------------------------------------------
     }
 }

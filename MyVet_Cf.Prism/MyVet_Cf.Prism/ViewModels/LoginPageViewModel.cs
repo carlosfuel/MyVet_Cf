@@ -1,5 +1,7 @@
-﻿using MyVet_Cf.Common.Models;
+﻿using MyVet_Cf.Common.Helpers;
+using MyVet_Cf.Common.Models;
 using MyVet_Cf.Common.Services;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -115,15 +117,19 @@ namespace MyVet_Cf.Prism.ViewModels
             }
 
             var owner = rta2.Result;
-            var parametros = new NavigationParameters
-            {
-                { "owner", owner }
-            };
+            //-------------------------------------------
+            Settings.Owner = JsonConvert.SerializeObject(owner);
+            Settings.Token = JsonConvert.SerializeObject(token);
+            //-------------------------------------------
+            //var parametros = new NavigationParameters
+            //{
+            //    { "owner", owner }
+            //};
 
             IsRunning = false;
             IsEnabled = true;
             
-            await _navigationService.NavigateAsync("PetsPage",parametros);
+            await _navigationService.NavigateAsync("/VeterinaryMasterDetailPage/NavigationPage/PetsPage");
             Password = string.Empty;
             //await App.Current.MainPage.DisplayAlert("Ok", "Muy bien", "Aceptar");
         }
