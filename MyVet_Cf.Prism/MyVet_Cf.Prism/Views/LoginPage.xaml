@@ -11,6 +11,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"             
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet_Cf.Prism.Views.LoginPage"
+             BackgroundColor="{StaticResource colorBackgroud}"
              Title="{Binding Title}">
 
     <ScrollView>
@@ -21,7 +22,7 @@
                AbsoluteLayout.LayoutFlags="All">
                 
                 <Image 
-                    HeightRequest="230"
+                    HeightRequest="130"
                     Source="logo"/>
                 <Label 
                     Text="Email"/>
@@ -38,17 +39,26 @@
                 <ActivityIndicator
                     VerticalOptions="CenterAndExpand"
                     IsRunning="{Binding IsRunning}"/>
-                <Button 
-                    BorderRadius="23"
-                    BackgroundColor="Navy"
+                <StackLayout
+                    Orientation="Horizontal"
+                    VerticalOptions="EndAndExpand">
+                    <Button                     
                     IsEnabled="{Binding IsEnabled}"
-                    Command="{Binding LoginCommand}" 
-                    HeightRequest="46"
-                        Text="Ingresar"
-                    TextColor="White"
+                    Command="{Binding LoginCommand}"                     
+                    Text="Ingresar"
+                    />
+                    
+                    <Button                     
+                    IsEnabled="{Binding IsEnabled}"
+                    Command="{Binding RegisterCommand}"  
+                        Style="{StaticResource secondaryButton}"
+                    Text="Registrar"
                     VerticalOptions="EndAndExpand"/>
+                </StackLayout>
+                
 
-        </StackLayout>
+
+            </StackLayout>
         <!--<busyindicator:SfBusyIndicator  
             AnimationType="Gear"
             AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"

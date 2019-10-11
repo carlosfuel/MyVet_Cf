@@ -5,7 +5,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet_Cf.Prism.Views.HistoriesPage"
              IconImageSource="ic_list"
-             
+             BackgroundColor="{StaticResource colorBackgroud}"
              Title="{Binding Title}">
 
     <StackLayout

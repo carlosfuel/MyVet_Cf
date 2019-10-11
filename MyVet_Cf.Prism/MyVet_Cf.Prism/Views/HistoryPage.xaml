@@ -4,7 +4,8 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="MyVet_Cf.Prism.Views.HistoryPage"             
+             x:Class="MyVet_Cf.Prism.Views.HistoryPage"     
+             BackgroundColor="{StaticResource colorBackgroud}"
              Title="{Binding Title}">
 
     <ScrollView>

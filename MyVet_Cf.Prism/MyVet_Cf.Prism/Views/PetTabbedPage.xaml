@@ -6,6 +6,7 @@
                         
              prism:ViewModelLocator.AutowireViewModel="True"
             x:Class="MyVet_Cf.Prism.Views.PetTabbedPage"
+            BackgroundColor="{StaticResource colorBackgroud}"
             Title="{Binding Title}">
 
     <TabbedPage.Children>
