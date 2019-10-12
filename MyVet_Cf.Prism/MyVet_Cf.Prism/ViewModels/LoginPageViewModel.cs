@@ -20,6 +20,7 @@ namespace MyVet_Cf.Prism.ViewModels
         private bool _isEnabled;
         private DelegateCommand _loginCommand;
         private DelegateCommand _registerCommand;
+        public DelegateCommand _forgotPasswordCommand { get; set; }
 
         public LoginPageViewModel(
             INavigationService navigationService,
@@ -41,6 +42,8 @@ namespace MyVet_Cf.Prism.ViewModels
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
 
         public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(Register));
+
+        public DelegateCommand ForgotPasswordCommand => _forgotPasswordCommand ?? (_forgotPasswordCommand = new DelegateCommand(ForgotPassword));
 
         public bool IsRemember { get; set; }
 
@@ -143,6 +146,11 @@ namespace MyVet_Cf.Prism.ViewModels
         private async void Register()
         {
             await _navigationService.NavigateAsync("RegisterPage");
+        }
+
+        private async void ForgotPassword()
+        {
+            await _navigationService.NavigateAsync("RememberPasswordPage");
         }
     }
 }
