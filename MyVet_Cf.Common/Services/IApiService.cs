@@ -22,6 +22,13 @@ namespace MyVet_Cf.Common.Services
 
         Task<bool> CheckConnection(string url);
 
+        //---------------------------------------------------
+        Task<Response<object>> RegisterUserAsync(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            UserRequest userRequest);
+
     }
 }
 

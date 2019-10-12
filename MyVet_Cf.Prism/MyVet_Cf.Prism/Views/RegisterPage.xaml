@@ -116,7 +116,11 @@
                 	IsEnabled="{Binding IsEnabled}"
                 	Text="Register"
                 	VerticalOptions="EndAndExpand"/>
+                
             </StackLayout>
+            <ActivityIndicator
+                    VerticalOptions="CenterAndExpand"
+                    IsRunning="{Binding IsRunning}"/>
             <!--<busyindicator:SfBusyIndicator  
             	AnimationType="Gear"
             	AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
