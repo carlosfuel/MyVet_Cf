@@ -19,6 +19,7 @@ namespace MyVet_Cf.Prism.ViewModels
         private bool _isRunning;
         private bool _isEnabled;
         private DelegateCommand _loginCommand;
+        private DelegateCommand _registerCommand;
 
         public LoginPageViewModel(
             INavigationService navigationService,
@@ -27,6 +28,8 @@ namespace MyVet_Cf.Prism.ViewModels
         {
             Title = "Autenticación...";
             IsEnabled = true;
+            IsRemember = true;
+
             _navigationService = navigationService;
             _apiService = apiService;
 
@@ -37,7 +40,10 @@ namespace MyVet_Cf.Prism.ViewModels
 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
 
-        
+        public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(Register));
+
+        public bool IsRemember { get; set; }
+
         public string Email { get; set; }
 
         public string Password
@@ -132,6 +138,11 @@ namespace MyVet_Cf.Prism.ViewModels
             await _navigationService.NavigateAsync("/VeterinaryMasterDetailPage/NavigationPage/PetsPage");
             Password = string.Empty;
             //await App.Current.MainPage.DisplayAlert("Ok", "Muy bien", "Aceptar");
+        }
+
+        private async void Register()
+        {
+            await _navigationService.NavigateAsync("RegisterPage");
         }
     }
 }

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="MyVet_Cf.Prism.Views.RegisterPage"
+             BackgroundColor="{StaticResource colorBackgroud}"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <AbsoluteLayout>
+            <StackLayout
+            	AbsoluteLayout.LayoutBounds="0,0,1,1"
+            	AbsoluteLayout.LayoutFlags="All"
+            	Padding="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                    	Grid.Row="0"
+                    	Grid.Column="0"
+                    	Text="Documento"
+                    	VerticalOptions="Center"/>
+                    <Entry
+                    	Grid.Row="0"
+                    	Grid.Column="1"
+                    	Placeholder="Ingrese su Documento..."
+                    	Text="{Binding Document}"/>
+
+                    <Label
+                    	Grid.Row="1"
+                    	Grid.Column="0"
+                    	Text="Nombres"
+                    	VerticalOptions="Center"/>
+                    <Entry
+                    	Grid.Row="1"
+                    	Grid.Column="1"
+                    	Placeholder="Ingrese sus Nombres..."
+                    	Text="{Binding FirstName}"/>
+
+                    <Label
+                    	Grid.Row="2"
+                    	Grid.Column="0"
+                    	Text="Apellidos"
+                    	VerticalOptions="Center"/>
+                    <Entry
+                    	Grid.Row="2"
+                    	Grid.Column="1"
+                    	Placeholder="Ingrese sus Apellidos..."
+                    	Text="{Binding LastName}"/>
+
+                    <Label
+                    	Grid.Row="3"
+                    	Grid.Column="0"
+                    	Text="Dirección"
+                    	VerticalOptions="Center"/>
+                    <Entry
+                    	Grid.Row="3"
+                    	Grid.Column="1"                        
+                    	Placeholder="Ingrese su Dirección..."
+                    	Text="{Binding Address}"/>
+
+                    <Label
+                    	Grid.Row="4"
+                    	Grid.Column="0"
+                    	Text="Correo"
+                    	VerticalOptions="Center"/>
+                    <Entry
+                    	Grid.Row="4"
+                    	Grid.Column="1"
+                    	Keyboard="Email"
+                    	Placeholder="Ingrese su Correo..."
+                    	Text="{Binding Email}"/>
+
+                    <Label
+                    	Grid.Row="5"
+                    	Grid.Column="0"
+                    	Text="Teléfono"
+                    	VerticalOptions="Center"/>
+                    <Entry
+                    	Grid.Row="5"
+                    	Grid.Column="1"
+                        Keyboard="Telephone"
+                    	Placeholder="Ingrese su número de teléfono..."
+                    	Text="{Binding Phone}"/>
+
+                    <Label
+                    	Grid.Row="6"
+                    	Grid.Column="0"
+                    	Text="Contraseña"
+                    	VerticalOptions="Center"/>
+                    <Entry
+                    	Grid.Row="6"
+                    	Grid.Column="1"
+                    	IsPassword="True"
+                    	Placeholder="Ingrese su Contraseña..."
+                    	Text="{Binding Password}"/>
+
+                    <Label
+                    	Grid.Row="7"
+                    	Grid.Column="0"
+                    	Text="Confir. Contraseña"
+                    	VerticalOptions="Center"/>
+                    <Entry
+                    	Grid.Row="7"
+                    	Grid.Column="1"
+                    	IsPassword="True"
+                    	Placeholder="Confirme su contraseña.."
+                    	Text="{Binding PasswordConfirm}"/>
+                </Grid>
+                <Button
+                	Command="{Binding RegisterCommand}"
+                	IsEnabled="{Binding IsEnabled}"
+                	Text="Register"
+                	VerticalOptions="EndAndExpand"/>
+            </StackLayout>
+            <!--<busyindicator:SfBusyIndicator  
+            	AnimationType="Gear"
+            	AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+            	AbsoluteLayout.LayoutFlags="All"
+            	BackgroundColor="{StaticResource colorSecondary}"
+            	HorizontalOptions="Center"
+            	TextColor="{StaticResource colorFontInverse}"
+            	IsVisible="{Binding IsRunning}"
+            	Title="Loading..."
+            	VerticalOptions="Center"
+            	ViewBoxWidth="80"
+            	ViewBoxHeight="80" />-->
+        </AbsoluteLayout>
+    </ScrollView>
+
+
+</ContentPage>

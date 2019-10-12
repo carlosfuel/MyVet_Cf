@@ -36,6 +36,24 @@
                     IsPassword="True"
                     Placeholder="Ingrese su Contraseña..."
                     Text="{Binding Password}"/>
+                <StackLayout
+	                HorizontalOptions="Center"
+                      Orientation="Horizontal">
+                        <Label
+    	                    Text="Recordarme en este Dispositivo"
+                            VerticalOptions="Center"/>
+                        <CheckBox
+    	                    IsChecked="{Binding IsRemember}"/>
+                </StackLayout>
+                    <Label
+	                    HorizontalOptions="Center"
+	                    Text="¿Olvidaste tu Contraseña?"
+	                    TextColor="{StaticResource colorAccent}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
                 <ActivityIndicator
                     VerticalOptions="CenterAndExpand"
                     IsRunning="{Binding IsRunning}"/>

@@ -42,6 +42,7 @@ namespace MyVet_Cf.Prism
             containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
             containerRegistry.RegisterForNavigation<ProfilePage, ProfilePageViewModel>();
             containerRegistry.RegisterForNavigation<VeterinaryMasterDetailPage, VeterinaryMasterDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
         }
     }
 }
