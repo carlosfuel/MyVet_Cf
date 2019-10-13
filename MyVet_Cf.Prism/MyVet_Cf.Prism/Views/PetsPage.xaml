@@ -8,6 +8,11 @@
              BackgroundColor="{StaticResource colorBackgroud}"             
              Title="{Binding Title}">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="ic_action_add_circle" Command="{Binding AddPetCommand}"/>
+        
+    </ContentPage.ToolbarItems>
+    
     <StackLayout
         Padding="10">
         <ListView

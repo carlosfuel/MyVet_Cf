@@ -1,6 +1,7 @@
 ﻿using MyVet_Cf.Common.Helpers;
 using MyVet_Cf.Common.Models;
 using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace MyVet_Cf.Prism.ViewModels
         private readonly INavigationService _navigationService;
         private OwnerResponse _owner;
         private ObservableCollection<PetItemViewModel> _pets;
+        private DelegateCommand _addPetCommand;
 
         //------------------------------------------------------------
 
@@ -22,6 +24,8 @@ namespace MyVet_Cf.Prism.ViewModels
             Title = "Mascotas";
             CargarPropietario();//lo enviamos por persistencia
         }
+
+        public DelegateCommand AddPetCommand => _addPetCommand ?? (_addPetCommand = new DelegateCommand(AddPet));
 
         //------------------------------------------------------------
 
@@ -51,5 +55,11 @@ namespace MyVet_Cf.Prism.ViewModels
         }
 
         //------------------------------------------------------------
+
+        private async void AddPet()
+        {
+            await _navigationService.NavigateAsync("EditPet");
+        }
+
     }
 }
