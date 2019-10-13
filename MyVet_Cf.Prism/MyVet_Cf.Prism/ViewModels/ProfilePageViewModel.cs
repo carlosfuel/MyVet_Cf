@@ -1,5 +1,6 @@
 ﻿using MyVet_Cf.Common.Helpers;
 using MyVet_Cf.Common.Models;
+using MyVet_Cf.Common.Services;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
@@ -9,18 +10,20 @@ namespace MyVet_Cf.Prism.ViewModels
 {
     public class ProfilePageViewModel : ViewModelBase
     {
+        private readonly IApiService _apiService;
         private bool _isRunning;
         private bool _isEnabled;
         private OwnerResponse _owner;
         private DelegateCommand _saveCommand;
 
         public ProfilePageViewModel(
-            INavigationService navigationService) : base(navigationService)
+            INavigationService navigationService,
+            IApiService apiService) : base(navigationService)
         {
+            _apiService = apiService;
             Title = "Modificar Perfil";
             IsEnabled = true;
             Owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
-
         }
 
         //----------------------------------------------------------
@@ -52,6 +55,50 @@ namespace MyVet_Cf.Prism.ViewModels
             {
                 return;
             }
+            IsRunning = true;
+            IsEnabled = false;
+
+            var userRequest = new UserRequest
+            {
+                Address = Owner.Address,
+                Document = Owner.Document,
+                Email = Owner.Email,
+                FirstName = Owner.FirstName,
+                LastName = Owner.LastName,
+                Password = "123456", // It doesn't matter what is sent here. It is only for the model to be valid
+                Phone = Owner.PhoneNumber
+            };
+
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            var response = await _apiService.PutAsync(
+                url,
+                "/api",
+                "/Account",
+                userRequest,
+                "bearer",
+                token.Token);
+
+            IsRunning = false;
+            IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    response.Message,
+                    "Aceptar");
+                return;
+            }
+
+            Settings.Owner = JsonConvert.SerializeObject(Owner);
+
+            await App.Current.MainPage.DisplayAlert(
+                "Ok",
+                "Usuario Actualizado exitosamente",
+                "Aceptar");
+
         }
 
         private async Task<bool> ValidateData()
