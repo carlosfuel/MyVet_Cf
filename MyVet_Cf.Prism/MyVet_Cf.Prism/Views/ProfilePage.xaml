@@ -6,5 +6,100 @@
              x:Class="MyVet_Cf.Prism.Views.ProfilePage"
              BackgroundColor="{StaticResource colorBackgroud}"
              Title="{Binding Title}">
-  
+
+    <ScrollView>
+        <AbsoluteLayout>
+            <StackLayout
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+               AbsoluteLayout.LayoutFlags="All"
+        	Padding="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                	    Grid.Row="0"
+                	    Grid.Column="0"
+                	    Text="Documento"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Row="0"
+                	    Grid.Column="1"
+                	    Placeholder="Ingrese su Documento.."
+                	    Text="{Binding Owner.Document}"/>
+
+                    <Label
+                	    Grid.Row="1"
+                	    Grid.Column="0"
+                	    Text="Nombres"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Row="1"
+                	    Grid.Column="1"
+                	    Placeholder="Ingrese sus Nombres.."
+                	    Text="{Binding Owner.FirstName}"/>
+
+                    <Label
+                	    Grid.Row="2"
+                	    Grid.Column="0"
+                	    Text="Apellidos"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Row="2"
+                	    Grid.Column="1"
+                	    Placeholder="Ingrese sus Apellidos"
+                	    Text="{Binding Owner.LastName}"/>
+
+                    <Label
+                	    Grid.Row="3"
+                	    Grid.Column="0"
+                	    Text="Dirección"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Row="3"
+                	    Grid.Column="1"
+                	    Placeholder="Ingrese su Dirección"
+                	    Text="{Binding Owner.Address}"/>
+
+                    <Label
+                	    Grid.Row="4"
+                	    Grid.Column="0"
+                	    Text="Teléfono"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Row="4"
+                	    Grid.Column="1"
+                        Keyboard="Telephone"
+                	    Placeholder="Ingrese su Número de Telef."
+                	    Text="{Binding Owner.PhoneNumber}"/>
+
+                </Grid>
+
+                <ActivityIndicator
+            	IsRunning="{Binding IsRunning}"
+            	VerticalOptions="CenterAndExpand"/>
+
+                <StackLayout
+            	Orientation="Horizontal"
+                    VerticalOptions="EndAndExpand">
+                    
+                    <Button
+                	    Command="{Binding SaveCommand}"
+                	    HorizontalOptions="FillAndExpand"
+                	    IsEnabled="{Binding IsEnabled}"
+                	    Text="Grabar"/>
+
+                    <Button
+                	    Command="{Binding ChangePasswordCommand}"
+                	    HorizontalOptions="FillAndExpand"
+                	    IsEnabled="{Binding IsEnabled}"
+                	    Style="{StaticResource secondaryButton}"
+                	    Text="Cambiar Contraseña"/>
+                </StackLayout>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ScrollView>
+
 </ContentPage>
