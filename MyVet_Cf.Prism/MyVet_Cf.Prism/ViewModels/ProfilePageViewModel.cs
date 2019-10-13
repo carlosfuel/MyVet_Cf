@@ -110,7 +110,8 @@ namespace MyVet_Cf.Prism.ViewModels
         {
             if (string.IsNullOrEmpty(Owner.Document))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Debes ingresar un Documento", "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Error"
+                    , "Debes ingresar un número de Documento de identificación", "Aceptar");
                 return false;
             }
 

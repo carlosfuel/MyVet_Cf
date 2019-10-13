@@ -1,4 +1,7 @@
-﻿using MyVet_Cf.Common.Services;
+﻿using MyVet_Cf.Common.Helpers;
+using MyVet_Cf.Common.Models;
+using MyVet_Cf.Common.Services;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Threading.Tasks;
@@ -50,7 +53,50 @@ namespace MyVet_Cf.Prism.ViewModels
             {
                 return;
             }
-        }
+
+            IsRunning = true;
+            IsEnabled = false;
+
+            var owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+
+            var request = new ChangePasswordRequest
+            {
+                Email = owner.Email,
+                NewPassword = NewPassword,
+                OldPassword = CurrentPassword
+            };
+
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            var response = await _apiService.ChangePasswordAsync(
+                url,
+                "/api",
+                "/Account/ChangePassword",
+                request,
+                "bearer",
+                token.Token);
+
+            IsRunning = false;
+            IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    response.Message,
+                    "Aceptar");
+                return;
+            }
+
+            await App.Current.MainPage.DisplayAlert(
+                "Ok",
+                response.Message,
+                "Aceptar");
+
+            await _navigationService.GoBackAsync();
+
+        }// fin de asyn void changepassword
+
 
         private async Task<bool> ValidateData()
         {
@@ -58,16 +104,18 @@ namespace MyVet_Cf.Prism.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert(
                     "Error",
-                    "contraseña actual incorrecta",
+                    "Ingrese su contraseña actual",
                     "Aceptar");
                 return false;
             }
+
+
 
             if (string.IsNullOrEmpty(NewPassword) || NewPassword?.Length < 6)
             {
                 await App.Current.MainPage.DisplayAlert(
                     "Error",
-                    "Nueva contrasea incorrecta",
+                    "Debes ingresar una contraseña válida",
                     "Aceptar");
                 return false;
             }
@@ -76,7 +124,7 @@ namespace MyVet_Cf.Prism.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert(
                     "Error",
-                    "Error al confirmar su contraseña",
+                    "Debes de confirmar la contraseña",
                     "Aceptar");
                 return false;
             }
@@ -93,6 +141,7 @@ namespace MyVet_Cf.Prism.ViewModels
             return true;
         }
     }
+
 
 }
 
