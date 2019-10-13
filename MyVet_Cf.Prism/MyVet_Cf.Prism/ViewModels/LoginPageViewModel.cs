@@ -35,8 +35,8 @@ namespace MyVet_Cf.Prism.ViewModels
             _apiService = apiService;
 
             //Borrar esta parte es temporal.............
-            Email ="carlosfuel@outlook.com";
-            Password = "123456";
+            //Email ="carlosfuel@outlook.com";
+            //Password = "123456";
         }
 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
@@ -129,6 +129,7 @@ namespace MyVet_Cf.Prism.ViewModels
             //-------------------------------------------
             Settings.Owner = JsonConvert.SerializeObject(owner);
             Settings.Token = JsonConvert.SerializeObject(token);
+            Settings.IsRemembered = IsRemember;
             //-------------------------------------------
             //var parametros = new NavigationParameters
             //{

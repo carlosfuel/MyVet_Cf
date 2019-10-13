@@ -1,4 +1,5 @@
-﻿using MyVet_Cf.Common.Models;
+﻿using MyVet_Cf.Common.Helpers;
+using MyVet_Cf.Common.Models;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -23,6 +24,7 @@ namespace MyVet_Cf.Prism.ViewModels
         {
             if (PageName.Equals("LoginPage"))
             {
+                Settings.IsRemembered = false;
                 await _navigationService.NavigateAsync("/NavigationPage/LoginPage");
                 return;
             }
