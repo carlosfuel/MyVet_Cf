@@ -6,7 +6,121 @@
              x:Class="MyVet_Cf.Prism.Views.EditPet"
              BackgroundColor="{StaticResource colorBackgroud}"             
              Title="{Binding Title}">
-    
-    
+
+    <ScrollView>
+        <AbsoluteLayout>
+            <StackLayout
+        	Padding="10"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+               AbsoluteLayout.LayoutFlags="All">
+
+                <Image
+            	HeightRequest="50"
+            	Source="{Binding ImageSource}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Label
+            	FontSize="Micro"
+            	HorizontalOptions="Center"
+            	Text="toque la imagen para cambiarla"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label
+                	    Grid.Column="0"
+                	    Grid.Row="0"
+                	    Text="Nombre"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Column="1"
+                	    Grid.Row="0"
+                	    Placeholder="Ingrese el nombre de la mascota.."
+                	    Text="{Binding Pet.Name}"/>
+
+                    <Label
+                	    Grid.Column="0"
+                	    Grid.Row="1"
+                	    Text="Raza"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Column="1"
+                	    Grid.Row="1"
+                	    Placeholder="Ingrese la raza de la mascota.."
+                	    Text="{Binding Pet.Race}"/>
+
+                    <Label
+                	    Grid.Column="0"
+                	    Grid.Row="2"
+                	    Text="Tipo de Mascota"
+                	    VerticalOptions="Center"/>
+                    <Picker
+                	    Grid.Column="1"
+                	    Grid.Row="2"
+                	    ItemDisplayBinding="{Binding Name}"
+                	    ItemsSource="{Binding PetTypes}"
+                	    SelectedItem="{Binding PetType}"
+                	    Title="Seleccione el tipo de mascota"/>
+
+                    <Label
+                	    Grid.Column="0"
+                	    Grid.Row="3"
+                	    Text="Fecha Nac."
+                	    VerticalOptions="Center"/>
+                    <DatePicker
+                	    Grid.Column="1"
+                	    Grid.Row="3"
+                	    Date="{Binding Pet.Born}"/>
+
+                    <Label
+                	    Grid.Column="0"
+                	    Grid.Row="4"
+                	    Text="Comentarios"
+                	    VerticalOptions="Center"/>
+                    <Editor
+                	    Grid.Column="1"
+                	    Grid.Row="4"
+                	    HeightRequest="80"
+                	    Text="{Binding Pet.Remarks}"/>
+                </Grid>
+
+                <ActivityIndicator
+            	IsRunning="{Binding IsRunning}"
+            	VerticalOptions="CenterAndExpand"/>
+
+                <StackLayout
+            	    Orientation="Horizontal"
+                    VerticalOptions="EndAndExpand">
+
+                    <Button
+                	Command="{Binding SaveCommand}"
+                	IsEnabled="{Binding IsEnabled}"
+                	Text="Grabar"/>
+
+                    <Button
+                	Command="{Binding DeleteCommand}"
+                	IsEnabled="{Binding IsEnabled}"
+                	IsVisible="{Binding IsEdit}"
+                	Style="{StaticResource dangerButton}"
+                	Text="Eliminar"/>
+                </StackLayout>
+            </StackLayout>
+        </AbsoluteLayout>
+
+    </ScrollView>
+
 
 </ContentPage>
