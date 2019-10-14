@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet_Cf.Prism.Views.EditPet"
              BackgroundColor="{StaticResource colorBackgroud}"             
@@ -16,13 +17,28 @@
                         AbsoluteLayout.LayoutBounds="0,0,1,1"
                         AbsoluteLayout.LayoutFlags="All">
 
-                        <Image
+                        <!--<Image
             	        HeightRequest="100"
             	        Source="{Binding ImageSource}">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
                             </Image.GestureRecognizers>
-                        </Image>
+                        </Image>-->
+
+                    <ffimageloading:CachedImage
+                            Aspect="AspectFit"   
+    	                    Source="{Binding ImageSource}"
+    	                    LoadingPlaceholder= "LoaderImage"
+    	                    ErrorPlaceholder= "ErrorImage"
+    	                    CacheDuration= "50"
+    	                    RetryCount= "3"
+    	                    RetryDelay= "600"
+    	                    DownsampleToViewSize = "true">
+                        <ffimageloading:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                        </ffimageloading:CachedImage.GestureRecognizers>
+                        
+                    </ffimageloading:CachedImage>
 
                         <Label
             	        FontSize="Micro"
