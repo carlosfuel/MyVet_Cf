@@ -23,11 +23,14 @@ namespace MyVet_Cf.Prism.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App(new iOSInitializer()));
+
             //--------------------------------------------------
+            Xamarin.FormsMaps.Init();
+
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             //new SfBusyIndicatorRenderer();
             //------------------------------------------------------
+            LoadApplication(new App(new iOSInitializer()));
             return base.FinishedLaunching(app, options);
         }
     }
