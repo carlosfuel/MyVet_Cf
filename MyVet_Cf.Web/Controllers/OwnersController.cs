@@ -97,7 +97,10 @@ namespace MyVet_Cf.Web.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     PhoneNumber = model.PhoneNumber,
-                    UserName = model.Username
+                    UserName = model.Username,
+                    Latitude = model.Latitude,
+                    Longitude = model.Longitude
+
                 };
 
                 var response = await _userHelper.AddUserAsync(user, model.Password);
@@ -181,7 +184,11 @@ namespace MyVet_Cf.Web.Controllers
                 FirstName = owner.User.FirstName,
                 Id = owner.Id,
                 LastName = owner.User.LastName,
-                PhoneNumber = owner.User.PhoneNumber
+                PhoneNumber = owner.User.PhoneNumber,
+
+                Latitude = owner.User.Latitude,
+                Longitude = owner.User.Longitude
+
             };
 
             return View(model);
@@ -202,6 +209,9 @@ namespace MyVet_Cf.Web.Controllers
                 owner.User.LastName = model.LastName;
                 owner.User.Address = model.Address;
                 owner.User.PhoneNumber = model.PhoneNumber;
+
+                owner.User.Latitude = model.Latitude;
+                owner.User.Longitude = model.Longitude;
 
                 await _userHelper.UpdateUserAsync(owner.User);
                 return RedirectToAction(nameof(Index));

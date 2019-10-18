@@ -28,5 +28,12 @@ namespace MyVet_Cf.Web.Models
         [Display(Name = "Número telefónico")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener mas de {1} caracteres")]
         public string PhoneNumber { get; set; }
+
+        [Display(Name = "Latitud")]
+        public double Latitude { get; set; }
+
+        [Display(Name = "Longitud")]
+        public double Longitude { get; set; }
+
     }
 }

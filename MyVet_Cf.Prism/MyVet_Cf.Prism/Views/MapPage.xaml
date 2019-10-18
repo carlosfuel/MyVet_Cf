@@ -12,7 +12,7 @@
         <maps:Map
         	x:Name="MyMap"
         	IsShowingUser="True"
-        	MapType="Street"/>
+        	MapType="Street"/>    
     </StackLayout>
 
 </ContentPage>
