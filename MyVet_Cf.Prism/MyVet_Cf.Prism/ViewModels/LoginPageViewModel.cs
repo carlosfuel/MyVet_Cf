@@ -1,6 +1,7 @@
 ﻿using MyVet_Cf.Common.Helpers;
 using MyVet_Cf.Common.Models;
 using MyVet_Cf.Common.Services;
+using MyVet_Cf.Prism.Helpers;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -71,7 +72,10 @@ namespace MyVet_Cf.Prism.ViewModels
         {
             if (string.IsNullOrEmpty(Email))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "No has digitado el Correo electrónico", "Aceptar");               
+                await App.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.EmailError,
+                    Languages.Accept);               
                 return;
             }
 
