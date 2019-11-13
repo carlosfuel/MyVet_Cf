@@ -28,7 +28,7 @@ namespace MyVet_Cf.Prism.ViewModels
             IApiService apiService
             ): base(navigationService)
         {
-            Title = "Autenticación...";
+            Title = Languages.Login;
             IsEnabled = true;
             IsRemember = true;
 
@@ -81,7 +81,9 @@ namespace MyVet_Cf.Prism.ViewModels
 
             if (string.IsNullOrEmpty(Password))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "No ha digitado la contraseña", "Aceptar");
+                await App.Current.MainPage.DisplayAlert(Languages.Error,
+                    Languages.PasswordError,
+                    Languages.Accept);
                 return;                
             }
 
@@ -103,7 +105,7 @@ namespace MyVet_Cf.Prism.ViewModels
             var request = new TokenRequest
             {
                 Password = Password,
-                Username = Email 
+                Username = Email       
             };
 
             //var  url = App.Current.Resources["UrlAPI"].ToString();
@@ -111,9 +113,11 @@ namespace MyVet_Cf.Prism.ViewModels
 
             if (!response.IsSuccess)
             {
-                IsRunning = false;
+                IsRunning = false; 
                 IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert("Error", "El Correo o Contraseña son Incorrectos", "Aceptar");
+                await App.Current.MainPage.DisplayAlert(Languages.Error,
+                    Languages.LoginError,
+                    Languages.Accept);
                 Password = string.Empty;
                 return;
             }

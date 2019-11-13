@@ -8,6 +8,9 @@
              Title="{Binding Title}">-->
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             xmlns:i18n="clr-namespace:MyVet_Cf.Prism.Helpers"
+             
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"             
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet_Cf.Prism.Views.LoginPage"
@@ -25,29 +28,29 @@
                     HeightRequest="130"
                     Source="logo"/>
                 <Label 
-                    Text="Email"/>
+                    Text="{i18n:Translate Email}"/>
                 <Entry
                     Keyboard="Email"
-                    Placeholder="Ingrese su correo..."
+                    Placeholder="{i18n:Translate EmailPlaceHolder}"
                     Text="{Binding Email}"/>
                 <Label 
-                    Text="Password"/>
+                    Text="{i18n:Translate Password}"/>
                 <Entry
                     IsPassword="True"
-                    Placeholder="Ingrese su Contraseña..."
+                    Placeholder="{i18n:Translate PasswordPlaceHolder}"
                     Text="{Binding Password}"/>
                 <StackLayout
 	                HorizontalOptions="Center"
                       Orientation="Horizontal">
                         <Label
-    	                    Text="Recordarme en este Dispositivo"
+    	                    Text="{i18n:Translate Rememberme}"
                             VerticalOptions="Center"/>
                         <CheckBox
     	                    IsChecked="{Binding IsRemember}"/>
                 </StackLayout>
                     <Label
 	                    HorizontalOptions="Center"
-	                    Text="¿Olvidaste tu Contraseña?"
+	                    Text="{i18n:Translate Forgot}"
 	                    TextColor="{StaticResource colorAccent}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
@@ -63,15 +66,15 @@
                     <Button                     
                     IsEnabled="{Binding IsEnabled}"
                     Command="{Binding LoginCommand}"                     
-                    Text="Ingresar"
+                    Text="{i18n:Translate Login}"
                     />
                     
                     <Button                     
-                    IsEnabled="{Binding IsEnabled}"
-                    Command="{Binding RegisterCommand}"  
-                        Style="{StaticResource secondaryButton}"
-                    Text="Registrar"
-                    VerticalOptions="EndAndExpand"/>
+                        IsEnabled="{Binding IsEnabled}"
+                        Command="{Binding RegisterCommand}"  
+                            Style="{StaticResource secondaryButton}"
+                        Text="{i18n:Translate Register}"
+                        VerticalOptions="EndAndExpand"/>
                 </StackLayout>
                 
 
